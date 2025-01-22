@@ -5,14 +5,14 @@
   "main": "serve.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon",
-    "gera": "webpack -w"
+    "start": "nodemon --ignore public --ignore frontend",
+    "gera": "webpack -w "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core-js": "^2.6.12",
+    "core-js": "^3.40.0",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "nodemon": "^3.1.9",
