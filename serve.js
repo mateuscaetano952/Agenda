@@ -5,6 +5,12 @@ const app = express();
 const routes = require('./routes');
 const port = process.env.PORT;
 const path = require('path');
+const helmet = require('helmet');
+const csrf = require('csurf');
+const {middlewareGlobal, checkCsrfError, csrfMiddleware} = require('./src/middlewares/meuMiddlewares');
+
+//Conexão de express
+app.use(express.urlencoded({ extended: true }));
 
 //Conecteando com a base de dados
 const mongoose = require('mongoose');
@@ -32,11 +38,29 @@ const sessionOptions = session({
     }
 });
 app.use(sessionOptions);
-app.use(flash);
+app.use(flash());
+
+
+//Configurações de segurança
+
+app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          "script-src": ["'self'", "trusted-cdn.com"], 
+        },
+      },
+    })
+  )
+app.use(csrf());
+app.use(csrfMiddleware);
+app.use(checkCsrfError);
 
 //express configurações e rotas
-app.use(express.urlencoded({ extended: true }));
+app.use(middlewareGlobal);
 app.use(routes);
+
 
 //Arquivos estaticos
 app.use(express.static(path.resolve(__dirname, 'public')));
