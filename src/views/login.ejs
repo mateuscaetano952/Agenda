@@ -8,9 +8,10 @@
 
             <div class="col-lg-4 my-3">
                 <h1 class="display-1 text-center pt-5">Entra na sua conta</h1>
-                <p class="text-center lead">Caso não tenha uma conta ainda clique <a href="/usuario/cadastra">Aqui</a></p>
+                <p class="text-center lead">Caso não tenha uma conta ainda clique <a href="/login/cadastra">Aqui</a></p>
 
                 <form>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
                       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

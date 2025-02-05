@@ -6,8 +6,10 @@ const usuarioController = require('./src/controllers/usuarioController')
 //Rotas home
 route.get('/', homeController.paginaInicial);
 
-//Rotas entra(login/cadastra)
-route.get('/usuario/login', usuarioController.login );
-route.get('/usuario/cadastra', usuarioController.cadastra );
+//Rotas entra(login)
+route.get('/login/index', usuarioController.login );
+route.get('/login/cadastra', usuarioController.cadastra );
+route.post('/login/cadastra', usuarioController.cadastraUsuario );
+
 
 module.exports = route;

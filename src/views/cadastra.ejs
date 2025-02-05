@@ -8,21 +8,19 @@
 
             <div class="col-lg-4 my-3">
                 <h1 class="display-1 text-center pt-5">Criar conta</h1>
-                <p class="text-center lead">Se já tiver conta clique <a href="/usuario/login">Aqui</a></p>
+                <p class="text-center lead">Se já tiver conta clique <a href="/login/index">Aqui</a></p>
 
-                <form>
+                <form method="POST" action="/login/cadastra">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Senha</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
+                      <input type="password" class="form-control" name="senha">
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Confirma senha</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
-                      </div>
+                    
                     <button type="submit" class="btn btn-primary">Enviar</button>
                   </form>
             </div>
