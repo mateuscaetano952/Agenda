@@ -10,21 +10,38 @@ const LoginModel = mongoose.model('Login', LoginSchema);
 
 class Login {
     constructor(body){
+        console.log(body)
         this.body = body;
         this.errors = [];
         this.user = null;
     }
 
-    registra(){
+    async registra(){
         this.valida();
+
+        if (this.errors.length > 0) return;  //Retorna se encontra um error
+
+        await this.salvaUsuario()
     }
 
     valida(){
         //Valida email
         if(!validator.isEmail(this.body.email)) this.errors.push("Email inválido");
        
-            //Validar senha
-        if(this.body.senha.length > 3 || this.body.senha.length < 40) this.errors.push("Tamnho deve der entre 3 a 40 caracteres");
+        //Validar senha
+        if(this.body.senha.length < 3 ||  this.body.senha.length > 40) this.errors.push("Tamnho deve der entre 3 a 40 caracteres");
+    }
+
+     //Salva o usuario no banco de dados
+     async salvaUsuario() {
+        try {
+            const user = new LoginModel(this.body);
+            await user.save(); 
+            this.user = user;
+        } catch (error) {
+            this.errors.push('Erro ao salvar usuário no banco de dados');
+        }
+   
     }
 
     //Verifica se tem elementos que não são Strings
@@ -34,7 +51,7 @@ class Login {
                 this.body[key] = '';
             }
 
-            //Só os campos email e senha passaram
+            //Só os campos email e senha
             this.body = {
                 email: this.body.email,
                 senha: this.body.senha
@@ -42,7 +59,5 @@ class Login {
         
         }
 
-       
 }
-
 module.exports = Login
