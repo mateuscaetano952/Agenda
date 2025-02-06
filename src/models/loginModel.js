@@ -10,7 +10,6 @@ const LoginModel = mongoose.model('Login', LoginSchema);
 
 class Login {
     constructor(body){
-        console.log(body)
         this.body = body;
         this.errors = [];
         this.user = null;
@@ -18,13 +17,17 @@ class Login {
 
     async registra(){
         this.valida();
+        if (this.errors.length > 0) return; 
 
-        if (this.errors.length > 0) return;  //Retorna se encontra um error
-
+        await this.userExisted();
+        if (this.errors.length > 0) return; 
+      
         await this.salvaUsuario()
     }
 
     valida(){
+        this.cleanUp();
+
         //Valida email
         if(!validator.isEmail(this.body.email)) this.errors.push("Email inválido");
        
@@ -42,6 +45,14 @@ class Login {
             this.errors.push('Erro ao salvar usuário no banco de dados');
         }
    
+    }
+
+    async userExisted(){
+        const usuarioExistente = await LoginModel.findOne({ email: this.body.email });
+        if (usuarioExistente) {
+            this.errors.push("Email já existe");
+            return;
+        }
     }
 
     //Verifica se tem elementos que não são Strings

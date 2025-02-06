@@ -11,7 +11,6 @@ exports.cadastra = (req, res) =>  {
 exports.cadastraUsuario = (req, res) =>  {
     const login = new Login(req.body);
     login.registra()
-
     if(login.errors.length > 0){
         req.flash('errors', login.errors);
         req.session.save(function() {
@@ -20,7 +19,7 @@ exports.cadastraUsuario = (req, res) =>  {
         return
     }
 
-    return res.redirect('/')
+    return res.redirect('/login/index')
 };
 
 
