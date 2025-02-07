@@ -19,9 +19,11 @@ class Login {
         this.valida();
         if (this.errors.length > 0) return; 
 
-        await this.userExisted();
-        if (this.errors.length > 0) return; 
-      
+        if (await this.userExisted()) {
+            this.errors.push("Email já existe");
+            return;
+        }
+
         await this.salvaUsuario()
     }
 
@@ -47,11 +49,13 @@ class Login {
    
     }
 
-    async userExisted(){
-        const usuarioExistente = await LoginModel.findOne({ email: this.body.email });
-        if (usuarioExistente) {
-            this.errors.push("Email já existe");
-            return;
+     async userExisted() {
+        try {
+            const usuarioExistente = await LoginModel.findOne({ email: this.body.email });
+            return !!usuarioExistente;
+        } catch (error) {
+            this.errors.push("Erro ao se conectar com o banco de dados");
+            return false;
         }
     }
 
