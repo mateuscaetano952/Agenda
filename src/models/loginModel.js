@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const saltRounds = 6;
+
 
 const LoginSchema = new mongoose.Schema({
     email: { type: String, required: true},
@@ -19,6 +22,13 @@ class Login {
         this.valida();
         if (this.errors.length > 0) return; 
 
+        try{
+            const salt = bcrypt.genSaltSync(saltRounds);
+            this.body.senha = bcrypt.hashSync(this.body.senha, salt);
+        } catch(e){
+            console.log(e)
+        }
+
         if (await this.userExisted()) {
             this.errors.push("Email já existe");
             return;
@@ -35,11 +45,14 @@ class Login {
        
         //Validar senha
         if(this.body.senha.length < 3 ||  this.body.senha.length > 40) this.errors.push("Tamnho deve der entre 3 a 40 caracteres");
+
+
     }
 
      //Salva o usuario no banco de dados
      async salvaUsuario() {
         try {
+
             const user = new LoginModel(this.body);
             await user.save(); 
             this.user = user;
@@ -59,6 +72,7 @@ class Login {
         }
     }
 
+
     //Verifica se tem elementos que não são Strings
     cleanUp(){
         for(const key in this.body) {
@@ -74,5 +88,6 @@ class Login {
         
         }
 
+     
 }
 module.exports = Login

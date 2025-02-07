@@ -11,7 +11,6 @@ exports.cadastra = (req, res) =>  {
 exports.cadastraUsuario = async (req, res) =>  {
     const login = new Login(req.body);
     await login.registra()
-    console.log(login.errors + "Controller")
     if(login.errors.length > 0){
         req.flash('errors', login.errors);
         req.session.save(function() {
