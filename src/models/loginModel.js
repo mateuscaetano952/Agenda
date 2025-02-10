@@ -18,16 +18,31 @@ class Login {
         this.user = null;
     }
 
+
+    async loginIn(){
+        this.cleanUp();
+        let user = await LoginModel.findOne({ email: this.body.email });
+        console.log(user)
+        if(!user){
+            this.errors.push("Email não encontrado se você não tive uma crie uma conta");
+            user = null;
+            return;
+        }
+
+        console.log(bcrypt.compareSync(user.senha, this.body.senha))
+        if(!bcrypt.compareSync(user.senha, this.body.senha)){
+            this.errors.push("Senha incorreta tente outra vez");
+            user = null;
+            return;
+        }
+    }
+
+    //Registra usuario novo
     async registra(){
         this.valida();
         if (this.errors.length > 0) return; 
 
-        try{
-            const salt = bcrypt.genSaltSync(saltRounds);
-            this.body.senha = bcrypt.hashSync(this.body.senha, salt);
-        } catch(e){
-            console.log(e)
-        }
+        this.hashPassword();
 
         if (await this.userExisted()) {
             this.errors.push("Email já existe");
@@ -36,6 +51,7 @@ class Login {
 
         await this.salvaUsuario()
     }
+
 
     valida(){
         this.cleanUp();
@@ -47,6 +63,15 @@ class Login {
         if(this.body.senha.length < 3 ||  this.body.senha.length > 40) this.errors.push("Tamnho deve der entre 3 a 40 caracteres");
 
 
+    }
+
+    hashPassword(){
+        try{
+            const salt = bcrypt.genSaltSync(saltRounds);
+            this.body.senha = bcrypt.hashSync(this.body.senha, salt);
+        } catch(e){
+            console.log(e)
+        }
     }
 
      //Salva o usuario no banco de dados
