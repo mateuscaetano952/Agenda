@@ -11,6 +11,7 @@ route.get('/login/index', usuarioController.login );
 route.post('/login/login', usuarioController.loginIn );
 route.get('/login/cadastra', usuarioController.cadastra );
 route.post('/login/cadastra', usuarioController.cadastraUsuario );
+route.get('/login/logout', usuarioController.logout);
 
 
 module.exports = route;

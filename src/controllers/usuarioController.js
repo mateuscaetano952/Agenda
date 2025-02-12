@@ -51,6 +51,10 @@ exports.loginIn = async (req, res) => {
         res.render('./error.ejs');
    }
 
+   exports.logout = (req, res) => {
+        req.sesison.destroy();
+   }
+
 
 }
 
