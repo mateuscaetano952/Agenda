@@ -30,14 +30,15 @@ class Login {
             return;
         }
 
-        console.log(bcrypt.compareSync(user.senha, this.body.senha))
-        if(!bcrypt.compareSync(user.senha, this.body.senha)){
+        console.log(bcrypt.compareSync(this.body.senha, user.senha))
+        if(!bcrypt.compareSync(this.body.senha, user.senha)){
             this.errors.push("Senha incorreta tente outra vez");
             user = null;
             return;
         }
-
-
+        
+        this.success.push("Logado com sucesso");
+        this.user = user;
     }
 
     //Registra usuario novo
@@ -52,8 +53,8 @@ class Login {
             return;
         }
 
-        await this.salvaUsuario();
         this.success.push("Usuario criado com sucesso");
+        await this.salvaUsuario();
         return;
     }
 
