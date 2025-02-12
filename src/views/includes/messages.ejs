@@ -11,3 +11,17 @@
 
 <% } %>
 
+<% if(success.length > 0) { %>
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger">
+                <% errors.forEach(erro => { %>
+                    <%= erro %><br>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+    
+    <% } %>
+    
+    

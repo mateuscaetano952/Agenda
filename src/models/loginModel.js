@@ -15,6 +15,7 @@ class Login {
     constructor(body){
         this.body = body;
         this.errors = [];
+        this.success = [];
         this.user = null;
     }
 
@@ -35,6 +36,8 @@ class Login {
             user = null;
             return;
         }
+
+
     }
 
     //Registra usuario novo
@@ -49,7 +52,9 @@ class Login {
             return;
         }
 
-        await this.salvaUsuario()
+        await this.salvaUsuario();
+        this.success.push("Usuario criado com sucesso");
+        return;
     }
 
 
