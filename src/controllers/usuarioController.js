@@ -1,31 +1,42 @@
 const Login = require('../models/loginModel')
 
+//Salva sessão e retorna feedback para o usuario
+const lidaComResposta = (req, res, rota, listaDeMsg, temError ) => {
+    if(temError){
+        req.flash('errors', listaDeMsg);
+    }else{
+        req.flash('success', listaDeMsg);
+    }
+
+    req.session.save(() => res.redirect(rota));
+}
+
 exports.login = (req, res) =>  {
     res.render('login.ejs');
 };
 
-exports.cadastra = (req, res) =>  {
+exports.register = (req, res) =>  {
     res.render('cadastra.ejs');
 };
 
 exports.cadastraUsuario = async (req, res) =>  {
-    const login = new Login(req.body);
-    await login.registra()
-
-    if(login.errors.length > 0){
-        req.flash('errors', login.errors);
-        req.session.save(function() {
-            return res.redirect('/login/cadastra');
-        })
-        return
+    try{
+        const login = new Login(req.body);
+        await login.register()
+    
+        if(login.errors.length > 0){
+           return lidaComResposta(req, res, '/login/cadastra', login.errors, true);
+        }
+        
+        //Se register foi bem succedido
+        return lidaComResposta(req, res, '/login/index', login.success, false);
+       
+    
+     
+    }catch(e){
+        console.log(e)
+        return res.render('error')
     }
-
-    req.session.save();
-    req.flash('success', login.success);
-    return res.redirect('/login/index')
-   
-
- 
 };
 
 exports.loginIn = async (req, res) => {
@@ -34,18 +45,12 @@ exports.loginIn = async (req, res) => {
     await login.loginIn();
 
     if(login.errors.length > 0){
-        req.flash('errors', login.errors);
-        req.session.save(function() {
-            return res.redirect('/login/index');
-        })
-        return
+        return lidaComResposta(req, res, '/login/index', login.errors, true);
     }
 
-    
+    //Se login foi bem succedido
     req.session.user = login.user;
-    req.flash('success', login.success);
-    req.session.save();
-    return res.redirect('/');
+    return lidaComResposta(req, res, '/', login.success, false);
    }catch (e){
         console.log(e)
         res.render('./error.ejs');
@@ -55,8 +60,13 @@ exports.loginIn = async (req, res) => {
 }
 
 exports.logout = (req, res) => {
+   try{
     req.session.destroy();
-    return res.redirect('/')
+    return res.redirect('/');
+   }catch(e){
+        console.log(e)
+        res.render('./error.ejs');
+   }
 }
 
 

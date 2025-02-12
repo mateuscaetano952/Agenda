@@ -23,14 +23,12 @@ class Login {
     async loginIn(){
         this.cleanUp();
         let user = await LoginModel.findOne({ email: this.body.email });
-        console.log(user)
         if(!user){
             this.errors.push("Email não encontrado se você não tive uma crie uma conta");
             user = null;
             return;
         }
 
-        console.log(bcrypt.compareSync(this.body.senha, user.senha))
         if(!bcrypt.compareSync(this.body.senha, user.senha)){
             this.errors.push("Senha incorreta tente outra vez");
             user = null;
@@ -41,8 +39,8 @@ class Login {
         this.user = user;
     }
 
-    //Registra usuario novo
-    async registra(){
+    //register usuario novo
+    async register(){
         this.valida();
         if (this.errors.length > 0) return; 
 
