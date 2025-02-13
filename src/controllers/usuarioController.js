@@ -1,6 +1,9 @@
 const Login = require('../models/loginModel')
 
-//Salva sessão e retorna feedback para o usuario
+//Salva sessão e retorna mensagens de feedback para o usuario(erro ou sucesso)
+//rota -> rota de redirecionamento
+//listaDeMsg -> array com mensagems de feedback
+//temError -> true ou false
 const lidaComResposta = (req, res, rota, listaDeMsg, temError ) => {
     if(temError){
         req.flash('errors', listaDeMsg);
@@ -23,7 +26,8 @@ exports.cadastraUsuario = async (req, res) =>  {
     try{
         const login = new Login(req.body);
         await login.register()
-    
+        
+        //Se erro encontrado
         if(login.errors.length > 0){
            return lidaComResposta(req, res, '/login/cadastra', login.errors, true);
         }
@@ -51,7 +55,8 @@ exports.loginIn = async (req, res) => {
     //Se login foi bem succedido
     req.session.user = login.user;
     return lidaComResposta(req, res, '/', login.success, false);
-   }catch (e){
+  
+    }catch (e){
         console.log(e)
         res.render('./error.ejs');
    }
@@ -59,6 +64,7 @@ exports.loginIn = async (req, res) => {
 
 }
 
+//Sair, Destrui sessão
 exports.logout = (req, res) => {
    try{
     req.session.destroy();
