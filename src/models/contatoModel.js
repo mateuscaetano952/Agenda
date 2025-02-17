@@ -32,6 +32,10 @@ class Contato {
     valida(){
         this.cleanUp();
 
+        if(this.body.email && !validator.isEmail(this.body.email)){
+            this.errors.push("Email invalido")
+        }
+
         //validar se nome 
         if(!this.body.nome){
             this.errors.push("Nome é um campo obrigatorio");
