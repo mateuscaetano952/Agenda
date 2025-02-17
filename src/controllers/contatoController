@@ -1,4 +1,40 @@
+const Login = require('../models/contatoModel')
+
+//Salva sessão e retorna mensagens de feedback para o usuario(erro ou sucesso)
+//rota -> rota de redirecionamento
+//listaDeMsg -> array com mensagems de feedback
+//temError -> true ou false
+const lidaComResposta = (req, res, rota, listaDeMsg, temError ) => {
+    if(temError){
+        req.flash('errors', listaDeMsg);
+    }else{
+        req.flash('success', listaDeMsg);
+    }
+
+    return req.session.save(() => res.redirect(rota));
+}
+
 exports.index = (req, res) =>  {
     res.render('criarContato.ejs');
 };
+
+exports.criarContato = async (req, res) =>  {
+ try{
+    const contato = new Login(req.body);
+    await contato.criarContato();
+    console.log(contato)
+    if(contato.errors.length > 0){
+        lidaComResposta(req, res, '/contato/index', contato.errors, true);
+        return;
+    }
+
+    lidaComResposta(req, res, '/', contato.success, false);
+    return;
+ }catch(error){
+    console.log(error);
+    return res.render('error');
+ }
+   
+};
+
 

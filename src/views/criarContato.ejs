@@ -12,17 +12,25 @@
 
 
                 <h1 class="display-1 text-center pt-5">Criar contato</h1>
-                <p class="text-center lead">Caso não tenha uma conta ainda clique <a href="/login/cadastra">Aqui</a></p>
+                <p class="text-center lead">Precisar ter email ou numero </p>
 
-                <form method="POST" action="/login/login">
+                <form method="POST" action="/contato/criarContato">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+                        <label for="exampleInputEmail1" class="form-label">Nome</label>
+                        <input type="text" class="form-control"  name="nome">
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Senha</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" name="senha">
+                        <label for="exampleInputEmail1" class="form-label">Sobrenome</label>
+                        <input type="text" class="form-control"  name="sobrenome">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
+                      <input type="email" class="form-control" name="email">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">numero</label>
+                      <input type="number" class="form-control" name="numero">
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                   </form>

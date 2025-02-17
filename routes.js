@@ -17,6 +17,7 @@ route.get('/login/logout', usuarioController.logout);
 
 //Rotas contato
 route.get('/contato/index',loginRequired ,contatoController.index);
+route.post('/contato/criarContato',loginRequired ,contatoController.criarContato);
 
 
 
