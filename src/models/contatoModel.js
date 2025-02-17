@@ -6,7 +6,7 @@ const ContatoSchema = new mongoose.Schema({
     nome: { type: String, required: true},
     sobrenome: { type: String, required: false},
     email: { type: String, required: false},
-    senha: { type: String, required: false},
+    numero: { type: String, required: false},
 });
 
 const ContatoModel = mongoose.model('Contato', ContatoSchema);
@@ -38,8 +38,9 @@ class Contato {
         }
 
 
-        if(!this.body.email && !this.body.nome){
-            this.errors.push("Precosa de um email ou um número de telefone");
+        //Precisar ou de um email ou número de telefone
+        if(!this.body.email && !this.body.numero){
+            this.errors.push("Precisa de um email ou um número de telefone");
         }
 
         
