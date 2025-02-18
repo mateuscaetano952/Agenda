@@ -15,20 +15,20 @@ const lidaComResposta = (req, res, rota, listaDeMsg, temError ) => {
 }
 
 exports.index = (req, res) =>  {
-    res.render('criarContato.ejs');
+    res.render('criarContato.ejs', { contato: {}});
 };
 
 exports.criarContato = async (req, res) =>  {
  try{
     const contato = new Login(req.body);
     await contato.criarContato();
-    console.log(contato)
+ 
     if(contato.errors.length > 0){
         lidaComResposta(req, res, '/contato/index', contato.errors, true);
         return;
     }
 
-    lidaComResposta(req, res, '/', contato.success, false);
+    lidaComResposta(req, res, `/contato/index/${contato.contato._id}`, contato.success, false);
     return;
  }catch(error){
     console.log(error);
@@ -37,4 +37,17 @@ exports.criarContato = async (req, res) =>  {
    
 };
 
+exports.editIndex = async (req, res) => {
+    if(!req.params.id)    return;
+
+    const id = req.params.id;
+
+    const contato = await Login.achaContato(req.params.id);
+    console.log(contato)
+    res.render("criarContato", {contato});
+}
+
+exports.editContato = (req, res) => {
+    res.send("Cí");
+}
 

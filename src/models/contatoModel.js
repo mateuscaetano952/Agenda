@@ -25,7 +25,7 @@ class Contato {
         
         if (this.errors.length > 0) return; 
         this.success.push('Contato salvo com sucesso');
-        await ContatoModel.create(this.body);
+        this.contato = await ContatoModel.create(this.body);
      
     }
 
@@ -53,12 +53,13 @@ class Contato {
 
 
 
-     async userExisted() {
+     static async achaContato(id) {
         try {
-            const usuarioExistente = await LoginModel.findOne({ email: this.body.email });
-            return !!usuarioExistente;
+            const contato = await ContatoModel.findOne({ _id: id });
+            return contato;
         } catch (error) {
-            this.errors.push("Erro ao se conectar com o banco de dados");
+           // this.errors.push("Erro ao se conectar com o banco de dados");
+           console.log(error);
             return false;
         }
     }

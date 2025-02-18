@@ -18,6 +18,8 @@ route.get('/login/logout', usuarioController.logout);
 //Rotas contato
 route.get('/contato/index',loginRequired ,contatoController.index);
 route.post('/contato/criarContato',loginRequired ,contatoController.criarContato);
+route.get('/contato/index/:id',loginRequired ,contatoController.editIndex);
+route.post('/contato/editaContato',loginRequired, contatoController.editContato);
 
 
 

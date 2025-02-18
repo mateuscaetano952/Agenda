@@ -14,23 +14,24 @@
                 <h1 class="display-1 text-center pt-5">Criar contato</h1>
                 <p class="text-center lead">Precisar ter email ou numero </p>
 
-                <form method="POST" action="/contato/criarContato">
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <form method="POST" action="<%= contato.length > 0 ? '/contato/criarContato' : '/contato/editaContato' %>">
+
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Nome</label>
-                        <input type="text" class="form-control"  name="nome">
+                        <input type="text" class="form-control"  name="nome" value="<%= contato.nome %>">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Sobrenome</label>
-                        <input type="text" class="form-control"  name="sobrenome">
+                        <input type="text" class="form-control"  name="sobrenome" value="<%= contato.sobrenome %>">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
-                      <input type="email" class="form-control" name="email">
+                      <input type="email" class="form-control" name="email" value="<%= contato.email %>">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">numero</label>
-                      <input type="number" class="form-control" name="numero">
+                      <input type="number" class="form-control" name="numero" value="<%= contato.numero %>">
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar</button>
                   </form>
