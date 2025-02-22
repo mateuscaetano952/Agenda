@@ -66,7 +66,6 @@ class Contato {
             const contato = await ContatoModel.findOne({ _id: id });
             return contato;
         } catch (error) {
-           // this.errors.push("Erro ao se conectar com o banco de dados");
            console.log(error);
             return false;
         }

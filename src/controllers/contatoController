@@ -55,19 +55,22 @@ exports.editIndex = async (req, res) => {
 }
 
 exports.editContato = async (req, res) => {
+   try{
     const contato = new Contato(req.body);
    
     await contato.edit(req.body.id);
 
     if(contato.errors.length > 0){
-        lidaComResposta(req, res, '/contato/index', contato.errors, true);
+        lidaComResposta(req, res, `/contato/index/${req.body.id}`, contato.errors, true);
         return;
     }
 
-
-
     lidaComResposta(req, res, `/contato/index/${req.body.id}`, contato.success, false);
     
+   }catch(error){
+    console.log(error);
+    res.render('error');
+   }
 
 }
 
