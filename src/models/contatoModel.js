@@ -51,7 +51,15 @@ class Contato {
 
     }
 
+    async edit(id){
+        this.valida();
+        if (this.errors.length > 0) return; 
+        
+        this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, {new: true});
+        this.success.push('Contato editado com sucesso');
+        
 
+    }
 
      static async achaContato(id) {
         try {
@@ -63,6 +71,8 @@ class Contato {
             return false;
         }
     }
+
+
 
 
     //Verifica se tem elementos que não são Strings

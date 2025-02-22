@@ -1,4 +1,4 @@
-const Login = require('../models/contatoModel')
+const Contato = require('../models/contatoModel')
 
 //Salva sessão e retorna mensagens de feedback para o usuario(erro ou sucesso)
 //rota -> rota de redirecionamento
@@ -20,7 +20,7 @@ exports.index = (req, res) =>  {
 
 exports.criarContato = async (req, res) =>  {
  try{
-    const contato = new Login(req.body);
+    const contato = new Contato(req.body);
     await contato.criarContato();
  
     if(contato.errors.length > 0){
@@ -38,16 +38,36 @@ exports.criarContato = async (req, res) =>  {
 };
 
 exports.editIndex = async (req, res) => {
-    if(!req.params.id)    return;
+   try{
+    if(!req.params.id) res.render('error.ejs');
 
     const id = req.params.id;
 
-    const contato = await Login.achaContato(req.params.id);
-    console.log(contato)
+    const contato = await Contato.achaContato(req.params.id);
+    
+    if(!contato) res.render('error.ejs');
+    
     res.render("criarContato", {contato});
+   }catch(error){
+    console.log(error);
+    res.render('error.ejs');
+   }
 }
 
-exports.editContato = (req, res) => {
-    res.send("Cí");
+exports.editContato = async (req, res) => {
+    const contato = new Contato(req.body);
+   
+    await contato.edit(req.body.id);
+
+    if(contato.errors.length > 0){
+        lidaComResposta(req, res, '/contato/index', contato.errors, true);
+        return;
+    }
+
+
+
+    lidaComResposta(req, res, `/contato/index/${req.body.id}`, contato.success, false);
+    
+
 }
 

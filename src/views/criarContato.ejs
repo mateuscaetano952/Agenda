@@ -9,14 +9,15 @@
             <div class="col-lg-8 my-3">
 
               <%- include('includes/messages') %>
+             
 
-
-                <h1 class="display-1 text-center pt-5">Criar contato</h1>
+                <h1 class="display-1 text-center pt-5"><%= contato._id ?  'Edita contato' : 'Criar contato'  %></h1>
                 <p class="text-center lead">Precisar ter email ou numero </p>
 
-                  <form method="POST" action="<%= contato.length > 0 ? '/contato/criarContato' : '/contato/editaContato' %>">
+                  <form method="POST" action="<%= contato._id ?  '/contato/editaContato/:contato._id' : '/contato/criarContato'  %>">
 
                   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <input type="hidden" name="id" value="<%= contato._id %>">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Nome</label>
                         <input type="text" class="form-control"  name="nome" value="<%= contato.nome %>">
