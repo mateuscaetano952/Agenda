@@ -71,6 +71,12 @@ class Contato {
         }
     }
 
+    static async listaContatos(){
+        const contatos = ContatoModel.find()
+    .sort({ criadoEm: -1 })
+
+        return contatos;
+    }
 
 
 
