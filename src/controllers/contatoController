@@ -74,3 +74,13 @@ exports.editContato = async (req, res) => {
 
 }
 
+exports.deleteContato = async (req, res) => {
+    if(!req.params.id && req.params.id != String){
+        rlidaComResposta(req, res, `/`, "Ume erro insaperado", true);
+    }
+
+    Contato.deleteContato(req.params.id);
+
+    lidaComResposta(req, res, `/`, "Contato deletado com sucesso", false);
+}
+

@@ -78,6 +78,10 @@ class Contato {
         return contatos;
     }
 
+    static async deleteContato(id){
+        const contato  = await ContatoModel.findOneAndDelete( {_id: id});
+    }
+
 
 
     //Verifica se tem elementos que não são Strings

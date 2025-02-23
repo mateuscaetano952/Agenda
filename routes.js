@@ -20,6 +20,7 @@ route.get('/contato/index',loginRequired ,contatoController.index);
 route.post('/contato/criarContato',loginRequired ,contatoController.criarContato);
 route.get('/contato/index/:id',loginRequired ,contatoController.editIndex);
 route.post('/contato/editaContato/:id',loginRequired, contatoController.editContato);
+route.get('/contato/deletaContato/:id', loginRequired, contatoController.deleteContato);
 
 
 

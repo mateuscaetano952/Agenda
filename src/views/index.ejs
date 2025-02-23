@@ -35,7 +35,7 @@
                                     <td> <%= contato.email %>  </td>
                                     <td> <%= contato.numero %>  </td>
                                     <td> <a class="btn btn-success" href="/contato/index/<%= contato._id %>">Editar</a></td>
-                                    <td> <a class="btn btn-danger" href="">Apagar</a></td>
+                                    <td> <a class="btn btn-danger" href="/contato/deletaContato/<%= contato._id %>">Apagar</a></td>
                                 </tr>
                             <% }) %>
                         </table>
