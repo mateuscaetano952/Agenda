@@ -63,7 +63,7 @@ app.use(routes);
 
 
 //Arquivos estaticos
-app.use(express.static(path.resolve(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, './public')));
 
 
 //View engine
