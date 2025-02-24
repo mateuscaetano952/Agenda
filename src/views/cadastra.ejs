@@ -15,6 +15,10 @@
 
                 <form method="POST" action="/login/cadastra">
                   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nome</label>
+                    <input type="text" class="form-control" name="nome">
+                  </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
                       <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
@@ -22,6 +26,10 @@
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Senha</label>
                       <input type="password" class="form-control" name="senha">
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Repita senha</label>
+                      <input type="password" class="form-control" name="senha-confirmacao">
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Enviar</button>

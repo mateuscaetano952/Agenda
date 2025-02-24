@@ -5,6 +5,7 @@ const saltRounds = 6;
 
 
 const LoginSchema = new mongoose.Schema({
+    nome: { type: String, required: true},
     email: { type: String, required: true},
     senha: { type: String, required: true},
 });
@@ -58,13 +59,25 @@ class Login {
 
 
     valida(){
+        console.log(this.body.nome)
         this.cleanUp();
 
+        if(!this.body.nome) {
+            this.errors.push("Nome é um campo obrigatorio");
+            return;
+        }
+
         //Valida email
-        if(!validator.isEmail(this.body.email)) this.errors.push("Email inválido");
+        if(!validator.isEmail(this.body.email)) {
+            this.errors.push("Email inválido");
+            return;
+        }
        
         //Validar senha
-        if(this.body.senha.length < 3 ||  this.body.senha.length > 40) this.errors.push("Tamnho deve der entre 3 a 40 caracteres");
+        if(this.body.senha.length < 3 ||  this.body.senha.length > 40) {
+            this.errors.push("Tamnho deve der entre 3 a 40 caracteres");
+            return;
+        }
 
 
     }
@@ -111,6 +124,7 @@ class Login {
 
             //Só os campos email e senha
             this.body = {
+                nome: this.body.nome,
                 email: this.body.email,
                 senha: this.body.senha
             }
