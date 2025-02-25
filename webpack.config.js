@@ -11,20 +11,15 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.js$|jsx/,
                 exclude: /node_modules/,
                 use: "babel-loader"
             },
             {
-                test: /\css$/,
+                test: /\.css$/,
                 use: [
-                    
-                   {
-                    loader: "babel-loader",
-                    options: {
-                        presets:['@babel/env']
-                    }
-                   }
+                    'style-loader', // Injects CSS into the DOM
+                    'css-loader'    // Resolves CSS imports
                 ]
             }
         ]

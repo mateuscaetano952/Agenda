@@ -13,7 +13,7 @@
                 <h1 class="display-1 text-center pt-5">Criar conta</h1>
                 <p class="text-center lead">Se já tiver conta clique <a href="/login/index">Aqui</a></p>
 
-                <form method="POST" action="/login/cadastra">
+                <form method="POST" class="form-cadastra" action="/login/cadastra">
                   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Nome</label>
@@ -21,11 +21,11 @@
                   </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Endereço de email</label>
-                      <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
+                      <input type="email" class="form-control" name="email">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Senha</label>
-                      <input type="password" class="form-control" name="senha">
+                      <input type="password" class="form-control form-senha" name="senha">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Repita senha</label>

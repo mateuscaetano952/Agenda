@@ -10,10 +10,14 @@ const ContatoSchema = new mongoose.Schema({
 });
 
 const ContatoModel = mongoose.model('Contato', ContatoSchema);
-/**
- * Representa um contato
- */
 
+/**
+ * Representa um contato 
+ * nome 
+ * sobrenome
+ * Email
+ * Telefone
+ */
 class Contato {
     constructor(body){
         this.body = body;
