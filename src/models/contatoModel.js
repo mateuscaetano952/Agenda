@@ -15,7 +15,7 @@ const ContatoModel = mongoose.model('Contato', ContatoSchema);
  * Representa um contato 
  * nome 
  * sobrenome
- * Email
+ * Email -> Precisar ou de um email ou de um telefone
  * Telefone
  */
 class Contato {
@@ -26,7 +26,11 @@ class Contato {
         this.contato = null;
     }
 
-    //Funções estaticas
+//Funções estaticas
+
+    /**
+     *  Procura na base de dados um elemento utilizando o parametro id
+     */
     static async achaContato(id) {
         try {
             const contato = await ContatoModel.findOne({ _id: id });
@@ -37,6 +41,9 @@ class Contato {
         }
     }
 
+    /**
+     *  Retorna todos os contatos cadastros em ordem por data 
+     */
     static async listaContatos(){
         const contatos = ContatoModel.find()
     .sort({ criadoEm: -1 })

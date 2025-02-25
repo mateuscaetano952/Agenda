@@ -1,9 +1,15 @@
 const Contato = require('../models/contatoModel')
 
-//Salva sessão e retorna mensagens de feedback para o usuario(erro ou sucesso)
-//rota -> rota de redirecionamento
-//listaDeMsg -> array com mensagems de feedback
-//temError -> true ou false
+/**
+ * Função
+ * - Salva a sessão
+ * - Configura a flash message
+ * - Redirecionar a pagina
+ * 
+ * @rota -> recebe a rota de redirecionamento
+ * @listaDeMsg -> Recebe uma array com os feedbacks que seram passados para as mensagens flash
+ * @temError -> Receber true ou false e decidir se a flash message vai ser um error(true) ou success(false)  
+ */
 const lidaComResposta = (req, res, rota, listaDeMsg, temError ) => {
     if(temError){
         req.flash('errors', listaDeMsg);
@@ -13,6 +19,7 @@ const lidaComResposta = (req, res, rota, listaDeMsg, temError ) => {
 
     return req.session.save(() => res.redirect(rota));
 }
+
 
 exports.index = (req, res) =>  {
     res.render('criarContato.ejs', { contato: {}});
@@ -40,8 +47,6 @@ exports.criarContato = async (req, res) =>  {
 exports.editIndex = async (req, res) => {
    try{
     if(!req.params.id) res.render('error.ejs');
-
-    const id = req.params.id;
 
     const contato = await Contato.achaContato(req.params.id);
     

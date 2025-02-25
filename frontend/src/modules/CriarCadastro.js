@@ -1,9 +1,9 @@
 const validator = require('validator');
 
 /**
- * A classe cadastra serve como validação do formulario cadastra.ejs
+ * A classe cadastra serve como validação do formulario criarCadastro
  */
-export default class Cadastra {
+export default class CriarCadastro {
     constructor(formClass){
         this.form = document.querySelector(formClass);
     }

@@ -55,42 +55,195 @@ var Cadastra = /*#__PURE__*/function () {
       var senhaInput = el.querySelector('input[name="senha"]');
       var senhaConfirmacaoInput = el.querySelector('input[name="senha-confirmacao"]');
       var errors = [];
-      console.log(nomeInput.value);
+
+      /**
+       * Remove todos os elemetons com a classee error-msg que já foram adicionado.
+       */
+      this.removeElemento();
       if (!nomeInput.value) {
-        var newNode = document.createElement('span');
-        newNode.classList.add("alert-danger");
-        newNode.innerText = 'Campo nome é obrigatorio';
-        nomeInput.parentNode.insertBefore(newNode, nomeInput.nextSibling);
-        alert('Campo nome é obrigatorio');
+        this.criarErrorMsg(nomeInput, 'Campo nome é obrigatorio');
         errors.push('Campo nome é obrigatorio');
         return;
       }
       if (!emailInput.value) {
-        alert('Email é um campo obrigatorio');
-        errors.push('Email é um campo obrigatorio');
+        this.criarErrorMsg(emailInput, 'Email é um campo obrigatorio');
+        errors.push('Campo nome é obrigatorio');
         return;
       }
       if (!validator.isEmail(emailInput.value)) {
-        alert('Email invalido');
-        errors.push('Email invalido');
+        this.criarErrorMsg(emailInput, 'Email invalido');
         return;
       }
       if (!senhaInput.value) {
-        alert('Senha é um campo obrigatorio');
-        errors.push('Senha é um campo obrigatorio');
+        this.criarErrorMsg(senhaInput, 'Senha é um campo obrigatorio');
+        errors.push('Campo nome é obrigatorio');
+        return;
+      }
+      if (senhaInput.value.length < 3) {
+        this.criarErrorMsg(senhaInput, 'A senha precisa ter entre 3 a 40 caracteres');
+        errors.push('A senha precisa ter entre 3 a 40 caracteres');
         return;
       }
       if (!senhaConfirmacaoInput.value) {
-        alert('Prencha o campo repita senha');
-        errors.push('Prencha o campo repita senha');
+        this.criarErrorMsg(senhaConfirmacaoInput, 'Prencha o campo repita senha');
+        errors.push('Campo nome é obrigatorio');
         return;
       }
       if (senhaConfirmacaoInput.value != senhaInput.value) {
-        alert('As senhas não batem');
-        errors.push('As senhas não batem');
+        this.criarErrorMsg(senhaInput, 'As senhas não batem');
+        errors.push('Campo nome é obrigatorio');
         return;
       }
       if (!errors.length > 0) el.submit();
+      return;
+    }
+
+    /**
+     *  Procusa se já existe elementos com a classe error-msg e a remove, impedir que as mensagem 
+     *  se stack.
+     */
+  }, {
+    key: "removeElemento",
+    value: function removeElemento() {
+      var el = document.getElementsByClassName('error-msg');
+      console.log(el);
+      if (el) {
+        for (var i = 0; i < el.length; i++) {
+          el[i].remove();
+        }
+      }
+      return;
+    }
+
+    /**
+     * Criar um elemento span adicionar uma mensagem e inseri o elemento no elemento pai
+     * msg <- Mensagem do html interno 
+     * elementoPai <- ELemento o span sera inserido
+     */
+  }, {
+    key: "criarErrorMsg",
+    value: function criarErrorMsg(elementoPai, msg) {
+      var newNode = document.createElement('span');
+      newNode.classList.add("error-msg");
+      newNode.innerText = msg;
+      elementoPai.parentNode.insertBefore(newNode, elementoPai.nextSibling);
+      return;
+    }
+  }]);
+}();
+
+
+/***/ }),
+
+/***/ "./frontend/src/modules/Login.js":
+/*!***************************************!*\
+  !*** ./frontend/src/modules/Login.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Login)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var validator = __webpack_require__(/*! validator */ "./node_modules/validator/index.js");
+
+/**
+ * A classe cadastra serve como validação do formulario cadastra.ejs
+ */
+var Login = /*#__PURE__*/function () {
+  function Login(formClass) {
+    _classCallCheck(this, Login);
+    this.form = document.querySelector(formClass);
+  }
+  return _createClass(Login, [{
+    key: "init",
+    value: function init() {
+      this.event();
+    }
+  }, {
+    key: "event",
+    value: function event() {
+      var _this = this;
+      /**
+       * Captura o evento de envior de formulario -> chama a função valida passando o evento como parametro.
+       */
+      if (!this.form) return;
+      this.form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        _this.valida(e);
+      });
+    }
+  }, {
+    key: "valida",
+    value: function valida(e) {
+      var el = e.target;
+      var emailInput = el.querySelector('input[name="email"]');
+      var senhaInput = el.querySelector('input[name="senha"]');
+      var errors = [];
+
+      /**
+       * Remove todos os elemetons com a classee error-msg que já foram adicionado.
+       */
+      this.removeElemento();
+      if (!emailInput.value) {
+        this.criarErrorMsg(emailInput, 'Email é um campo obrigatorio');
+        errors.push('Campo nome é obrigatorio');
+        return;
+      }
+      if (!validator.isEmail(emailInput.value)) {
+        this.criarErrorMsg(emailInput, 'Email invalido');
+        return;
+      }
+      if (!senhaInput.value) {
+        this.criarErrorMsg(senhaInput, 'Senha é um campo obrigatorio');
+        errors.push('Campo nome é obrigatorio');
+        return;
+      }
+      if (senhaInput.value.length < 3) {
+        this.criarErrorMsg(senhaInput, 'A senha precisa ter entre 3 a 40 caracteres');
+        errors.push('A senha precisa ter entre 3 a 40 caracteres');
+        return;
+      }
+      if (!errors.length > 0) el.submit();
+      return;
+    }
+
+    /**
+     *  Procusa se já existe elementos com a classe error-msg e a remove, impedir que as mensagem 
+     *  se stack.
+     */
+  }, {
+    key: "removeElemento",
+    value: function removeElemento() {
+      var el = document.getElementsByClassName('error-msg');
+      console.log(el);
+      if (el) {
+        for (var i = 0; i < el.length; i++) {
+          el[i].remove();
+        }
+      }
+      return;
+    }
+
+    /**
+     * Criar um elemento span adicionar uma mensagem e inseri o elemento no elemento pai
+     * msg <- Mensagem do html interno 
+     * elementoPai <- ELemento o span sera inserido
+     */
+  }, {
+    key: "criarErrorMsg",
+    value: function criarErrorMsg(elementoPai, msg) {
+      var newNode = document.createElement('span');
+      newNode.classList.add("error-msg");
+      newNode.innerText = msg;
+      elementoPai.parentNode.insertBefore(newNode, elementoPai.nextSibling);
       return;
     }
   }]);
@@ -119,13 +272,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.alert-danger {
+___CSS_LOADER_EXPORT___.push([module.id, `.error-msg{
     margin-top: 5px;
     padding: 4px;
     border: 1px solid transparent;
     color: #f44336;
 }
-`, "",{"version":3,"sources":["webpack://./frontend/src/assets/css/style.css"],"names":[],"mappings":"AAAA;IACI,eAAe;IACf,YAAY;IACZ,6BAA6B;IAC7B,cAAc;AAClB","sourcesContent":[".alert-danger {\n    margin-top: 5px;\n    padding: 4px;\n    border: 1px solid transparent;\n    color: #f44336;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./frontend/src/assets/css/style.css"],"names":[],"mappings":"AAAA;IACI,eAAe;IACf,YAAY;IACZ,6BAA6B;IAC7B,cAAc;AAClB","sourcesContent":[".error-msg{\n    margin-top: 5px;\n    padding: 4px;\n    border: 1px solid transparent;\n    color: #f44336;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -31815,12 +31968,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/css/style.css */ "./frontend/src/assets/css/style.css");
 /* harmony import */ var _modules_Cadastro__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Cadastro */ "./frontend/src/modules/Cadastro.js");
+/* harmony import */ var _modules_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/Login */ "./frontend/src/modules/Login.js");
+
 
 
 
 
 var cadastro = new _modules_Cadastro__WEBPACK_IMPORTED_MODULE_3__["default"]('.form-cadastra');
+var login = new _modules_Login__WEBPACK_IMPORTED_MODULE_4__["default"]('.form-login');
 cadastro.init();
+login.init();
 })();
 
 /******/ })()

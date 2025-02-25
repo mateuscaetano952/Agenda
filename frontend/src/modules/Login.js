@@ -3,7 +3,7 @@ const validator = require('validator');
 /**
  * A classe cadastra serve como validação do formulario cadastra.ejs
  */
-export default class Cadastra {
+export default class Login {
     constructor(formClass){
         this.form = document.querySelector(formClass);
     }
@@ -25,10 +25,8 @@ export default class Cadastra {
 
     valida(e){
         const el = e.target;
-        const nomeInput = el.querySelector('input[name="nome"]')
         const emailInput = el.querySelector('input[name="email"]');
         const senhaInput = el.querySelector('input[name="senha"]')
-        const senhaConfirmacaoInput = el.querySelector('input[name="senha-confirmacao"]')
         let errors = [];
         
         /**
@@ -36,11 +34,6 @@ export default class Cadastra {
          */
         this.removeElemento()
 
-        if(!nomeInput.value){
-            this.criarErrorMsg(nomeInput, 'Campo nome é obrigatorio');
-            errors.push('Campo nome é obrigatorio')
-            return
-        }
 
         if(!emailInput.value){
             this.criarErrorMsg(emailInput, 'Email é um campo obrigatorio');
@@ -65,21 +58,7 @@ export default class Cadastra {
             errors.push('A senha precisa ter entre 3 a 40 caracteres');
             return;
         }
-
-        if(!senhaConfirmacaoInput.value){
-            this.criarErrorMsg(senhaConfirmacaoInput, 'Prencha o campo repita senha');
-            errors.push('Campo nome é obrigatorio')
-            return;
-        }
-
-        if(senhaConfirmacaoInput.value != senhaInput.value){
-            this.criarErrorMsg(senhaInput, 'As senhas não batem');
-            errors.push('Campo nome é obrigatorio')
-            return;
-        }
-        
-        
-        
+              
         
         if(!errors.length > 0) el.submit();
         return;
