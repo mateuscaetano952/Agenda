@@ -14,7 +14,7 @@
                 <h1 class="display-1 text-center pt-5"><%= contato._id ?  'Edita contato' : 'Criar contato'  %></h1>
                 <p class="text-center lead">Precisar ter email ou numero </p>
 
-                  <form method="POST" action="<%= contato._id ?  '/contato/editaContato/:contato._id' : '/contato/criarContato'  %>">
+                  <form method="POST" class="criar-cadastro-form" action="<%= contato._id ?  '/contato/editaContato/:contato._id' : '/contato/criarContato'  %>">
 
                   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                   <input type="hidden" name="id" value="<%= contato._id %>">

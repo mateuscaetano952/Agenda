@@ -26,9 +26,9 @@ export default class CriarCadastro {
     valida(e){
         const el = e.target;
         const nomeInput = el.querySelector('input[name="nome"]')
-        const emailInput = el.querySelector('input[name="email"]');
-        const senhaInput = el.querySelector('input[name="senha"]')
-        const senhaConfirmacaoInput = el.querySelector('input[name="senha-confirmacao"]')
+        const sobrenomeInput = el.querySelector('input[name="sobrenome"]');
+        const emailInput = el.querySelector('input[name="email"]')
+        const numeroInput = el.querySelector('input[name="numero"]')
         let errors = [];
         
         /**
@@ -42,43 +42,11 @@ export default class CriarCadastro {
             return
         }
 
-        if(!emailInput.value){
-            this.criarErrorMsg(emailInput, 'Email é um campo obrigatorio');
-            errors.push('Campo nome é obrigatorio')
-            return;
+        if(!emailInput.value && !numeroInput.value){
+            this.criarErrorMsg(emailInput, 'Precisar ou de um email ou de um número');
+            errors.push('Precisar ou de um email ou de um número')
+            return
         }
-
-        if(!validator.isEmail(emailInput.value)){
-            this.criarErrorMsg(emailInput, 'Email invalido');
-            return;
-        }
-
-        if(!senhaInput.value){
-            this.criarErrorMsg(senhaInput, 'Senha é um campo obrigatorio');
-            errors.push('Campo nome é obrigatorio')
-            return;
-        }
-
-
-        if(senhaInput.value.length < 3){
-            this.criarErrorMsg(senhaInput, 'A senha precisa ter entre 3 a 40 caracteres');
-            errors.push('A senha precisa ter entre 3 a 40 caracteres');
-            return;
-        }
-
-        if(!senhaConfirmacaoInput.value){
-            this.criarErrorMsg(senhaConfirmacaoInput, 'Prencha o campo repita senha');
-            errors.push('Campo nome é obrigatorio')
-            return;
-        }
-
-        if(senhaConfirmacaoInput.value != senhaInput.value){
-            this.criarErrorMsg(senhaInput, 'As senhas não batem');
-            errors.push('Campo nome é obrigatorio')
-            return;
-        }
-        
-        
         
         
         if(!errors.length > 0) el.submit();

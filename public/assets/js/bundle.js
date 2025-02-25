@@ -135,6 +135,116 @@ var Cadastra = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./frontend/src/modules/CriarCadastro.js":
+/*!***********************************************!*\
+  !*** ./frontend/src/modules/CriarCadastro.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CriarCadastro)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var validator = __webpack_require__(/*! validator */ "./node_modules/validator/index.js");
+
+/**
+ * A classe cadastra serve como validação do formulario criarCadastro
+ */
+var CriarCadastro = /*#__PURE__*/function () {
+  function CriarCadastro(formClass) {
+    _classCallCheck(this, CriarCadastro);
+    this.form = document.querySelector(formClass);
+  }
+  return _createClass(CriarCadastro, [{
+    key: "init",
+    value: function init() {
+      this.event();
+    }
+  }, {
+    key: "event",
+    value: function event() {
+      var _this = this;
+      /**
+       * Captura o evento de envior de formulario -> chama a função valida passando o evento como parametro.
+       */
+      if (!this.form) return;
+      this.form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        _this.valida(e);
+      });
+    }
+  }, {
+    key: "valida",
+    value: function valida(e) {
+      var el = e.target;
+      var nomeInput = el.querySelector('input[name="nome"]');
+      var sobrenomeInput = el.querySelector('input[name="sobrenome"]');
+      var emailInput = el.querySelector('input[name="email"]');
+      var numeroInput = el.querySelector('input[name="numero"]');
+      var errors = [];
+
+      /**
+       * Remove todos os elemetons com a classee error-msg que já foram adicionado.
+       */
+      this.removeElemento();
+      if (!nomeInput.value) {
+        this.criarErrorMsg(nomeInput, 'Campo nome é obrigatorio');
+        errors.push('Campo nome é obrigatorio');
+        return;
+      }
+      if (!emailInput.value && !numeroInput.value) {
+        this.criarErrorMsg(emailInput, 'Precisar ou de um email ou de um número');
+        errors.push('Precisar ou de um email ou de um número');
+        return;
+      }
+      if (!errors.length > 0) el.submit();
+      return;
+    }
+
+    /**
+     *  Procusa se já existe elementos com a classe error-msg e a remove, impedir que as mensagem 
+     *  se stack.
+     */
+  }, {
+    key: "removeElemento",
+    value: function removeElemento() {
+      var el = document.getElementsByClassName('error-msg');
+      console.log(el);
+      if (el) {
+        for (var i = 0; i < el.length; i++) {
+          el[i].remove();
+        }
+      }
+      return;
+    }
+
+    /**
+     * Criar um elemento span adicionar uma mensagem e inseri o elemento no elemento pai
+     * msg <- Mensagem do html interno 
+     * elementoPai <- ELemento o span sera inserido
+     */
+  }, {
+    key: "criarErrorMsg",
+    value: function criarErrorMsg(elementoPai, msg) {
+      var newNode = document.createElement('span');
+      newNode.classList.add("error-msg");
+      newNode.innerText = msg;
+      elementoPai.parentNode.insertBefore(newNode, elementoPai.nextSibling);
+      return;
+    }
+  }]);
+}();
+
+
+/***/ }),
+
 /***/ "./frontend/src/modules/Login.js":
 /*!***************************************!*\
   !*** ./frontend/src/modules/Login.js ***!
@@ -31969,6 +32079,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/css/style.css */ "./frontend/src/assets/css/style.css");
 /* harmony import */ var _modules_Cadastro__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Cadastro */ "./frontend/src/modules/Cadastro.js");
 /* harmony import */ var _modules_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/Login */ "./frontend/src/modules/Login.js");
+/* harmony import */ var _modules_CriarCadastro__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/CriarCadastro */ "./frontend/src/modules/CriarCadastro.js");
+
 
 
 
@@ -31976,8 +32088,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var cadastro = new _modules_Cadastro__WEBPACK_IMPORTED_MODULE_3__["default"]('.form-cadastra');
 var login = new _modules_Login__WEBPACK_IMPORTED_MODULE_4__["default"]('.form-login');
+var criarCadastro = new _modules_CriarCadastro__WEBPACK_IMPORTED_MODULE_5__["default"]('.criar-cadastro-form');
 cadastro.init();
 login.init();
+criarCadastro.init();
 })();
 
 /******/ })()

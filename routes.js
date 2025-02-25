@@ -7,6 +7,7 @@ const { loginRequired } = require('./src/middlewares/loginRequired');
 
 //Rotas home
 route.get('/', homeController.paginaInicial);
+route.get('/sobre', homeController.paginaInicial);
 
 //Rotas login
 route.get('/login/index', usuarioController.login );
