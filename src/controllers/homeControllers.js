@@ -16,3 +16,6 @@ exports.paginaInicial = async (req, res) =>  {
     }
 };
 
+exports.sobre = (req, res) => {
+    res.render('sobre');
+}

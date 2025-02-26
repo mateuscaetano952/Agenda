@@ -17,7 +17,9 @@
 
                 <h1 class="display-1 text-center pt-5">Agenda</h1>
                 <p class="text-center lead">Seus contados abaixos</p>
-    
+                <% if(!user) { %>
+                    <h1 class="text-center pt-5">Você precisa esta logado para edicionar contatos</h1>
+                    <% }else{ %>
                 <% if(contatos.length > 0){ %>
                     <div class="responsive-table">
                         <table class="table">
@@ -42,6 +44,7 @@
                     </div>
                 <% }else{ %>
                     <h1 class="text-center pt-5">Nenhum contato adicionado</h1>
+                <% } %>
                 <% } %>
             </div>
 
