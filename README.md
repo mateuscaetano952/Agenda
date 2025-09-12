@@ -1,2 +1,3 @@
 # Agenda
- 
+Tecnologias usadas
+-Javascript
