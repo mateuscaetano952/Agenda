@@ -52,14 +52,6 @@ Programa de agenda, guarda nomes numeros e ou emails.
     src="https://github.com/devicons/devicon/blob/v2.16.0/icons/express/express-original.svg" 
 />
 
-<img 
-    align="left" 
-    alt="Express.js" 
-    title="Express.js"
-    width="30px" 
-    style="padding-right: 10px;" 
-    src="https://github.com/devicons/devicon/blob/v2.16.0/icons/express/mongodb.svg" 
-/>
 
 <img 
     align="left" 
