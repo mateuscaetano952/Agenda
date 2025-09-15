@@ -1,10 +1,13 @@
 # Agenda
-Programa de agenda, para salvar contatos com nome, sobrenome, email e o número.
+Programa de agenda, para gerenciar contatos.
 - Login/cadastro.
 - Crud com mongodb
 - Bootstrap 5 para criação de interfaces gráficas de forma eficiente.
 - Padrão Mvc (Model-view-controller).
 - Validações/segurança Csrf token, helmet...
+###Objetivo
+Objetivo do projeto foi de estudo e consolidação do conhecimento.
+- Node.js, express, Mvc, MongoDb,Login/Cadstro -> Estrategias de validação front-end & backend, segurança(helmet, Csrf token...).  
 ### Tecnologias usadas
 
 <img 
