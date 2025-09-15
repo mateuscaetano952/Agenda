@@ -1,5 +1,5 @@
 # Agenda
-Programa de agenda, guarda nomes numeros e ou emails.
+Programa de agenda, guarda nomes, numeros, emails e etc.
 - Login/cadastro.
 - Crud mongodb
 - Mvc (Model-view-controller)
