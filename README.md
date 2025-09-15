@@ -2,6 +2,7 @@
 Programa de agenda, para salvar contatos com nome, sobrenome, email e o número.
 - Login/cadastro.
 - Crud mongodb
+- Bootstrap5 para criação de interface de forma eficiente.
 - Mvc (Model-view-controller)
 - Csrf token
 ### Tecnologias usadas
@@ -31,6 +32,15 @@ Programa de agenda, para salvar contatos com nome, sobrenome, email e o número.
     width="30px" 
     style="padding-right: 10px;" 
     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" 
+/>
+
+<img 
+    align="left" 
+    alt="Bootstrap5" 
+    title="Bootstrap5"
+    width="30px" 
+    style="padding-right: 10px;" 
+    src="https://github.com/devicons/devicon/blob/v2.17.0/icons/bootstrap/bootstrap-original.svg" 
 />
 
 
