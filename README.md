@@ -1,10 +1,10 @@
 # Agenda
 Programa de agenda, para salvar contatos com nome, sobrenome, email e o número.
 - Login/cadastro.
-- Crud mongodb
-- Bootstrap5 para criação de interface de forma eficiente.
-- Mvc (Model-view-controller)
-- Csrf token
+- Crud com mongodb
+- Bootstrap 5 para criação de interfaces gráficas de forma eficiente.
+- Padrão Mvc (Model-view-controller).
+- Validações/segurança Csrf token, helmet...
 ### Tecnologias usadas
 
 <img 
